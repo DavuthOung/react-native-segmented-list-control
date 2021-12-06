@@ -1,31 +1,54 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-segmented-list-control';
-
+import { StyleSheet, View ,Text} from 'react-native';
+import { Segmented } from 'react-native-segmented-list-control';
+const DATA = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item',
+  },
+];
+const Item = ({ title } : any) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
+);
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
-
+  const renderItem = ({ item } : any) => (
+    <Item title={item.title} />
+  );
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+     <Segmented
+        RenderMenu={renderItem}
+        data={DATA}
+     />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1
   },
   box: {
     width: 60,
     height: 60,
     marginVertical: 20,
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    width : 300
+  },
+  title: {
+    fontSize: 15,
   },
 });
